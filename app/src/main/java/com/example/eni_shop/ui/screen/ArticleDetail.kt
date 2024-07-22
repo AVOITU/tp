@@ -1,12 +1,10 @@
 package com.example.eni_shop.ui.screen
 
-import android.annotation.SuppressLint
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxHeight
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -17,6 +15,8 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
@@ -24,13 +24,27 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.em
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import coil.compose.AsyncImage
 import com.example.eni_shop.bo.Article
 import com.example.eni_shop.ui.common.TopBar
+import com.example.eni_shop.ui.vm.ArticleDetailViewModel
 import com.example.eni_shop.utils.convertDateToStringFR
 
+
+
 @Composable
-fun ArticleDetailScreen(article: Article) {
+fun ArticleDetailScreen(article: Article, id : Long=1,
+                        articleDetailViewModel: ArticleDetailViewModel = viewModel(factory = ArticleDetailViewModel.Factory)
+) {
+
+    val _article by articleDetailViewModel.article.collectAsState()
+    val _errorMessage by articleDetailViewModel.article.collectAsState()
+
+    if (article != null){
+
+    }
+
     Scaffold(
         topBar = { TopBar() }
     ) {
