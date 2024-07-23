@@ -12,6 +12,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.example.eni_shop.repository.ArticleRepository
 import com.example.eni_shop.ui.Destination
+import com.example.eni_shop.ui.screen.ArticleDetailScreen
 import com.example.eni_shop.ui.screen.ArticleListScreen
 import com.example.eni_shop.ui.theme.ENISHOPTheme
 
@@ -29,6 +30,7 @@ class MainActivity : ComponentActivity() {
 
         setContent {
             ENISHOPTheme {
+                ArticleDetailScreen(articleId = 3)
                 EniShopApp()
             }
         }
