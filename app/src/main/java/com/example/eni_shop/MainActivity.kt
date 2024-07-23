@@ -5,7 +5,13 @@ import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
+import androidx.compose.runtime.Composable
+import androidx.navigation.NavHostController
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
+import androidx.navigation.compose.rememberNavController
 import com.example.eni_shop.repository.ArticleRepository
+import com.example.eni_shop.ui.Destination
 import com.example.eni_shop.ui.screen.ArticleListScreen
 import com.example.eni_shop.ui.theme.ENISHOPTheme
 
@@ -23,7 +29,25 @@ class MainActivity : ComponentActivity() {
 
         setContent {
             ENISHOPTheme {
-                ArticleListScreen()
+                EniShopApp()
+            }
+        }
+    }
+
+    @Composable
+    fun EniShopApp() {
+        val navHostController = rememberNavController()
+        EniShopNavHost(navHostController = navHostController)
+    }
+
+    private @Composable
+    fun EniShopNavHost(navHostController: NavHostController) {
+
+        NavHost(
+            navController = navHostController,
+            startDestination = Destination.HomeDestination.route
+        ) {
+            composable(Destination.HomeDestination.route) {
             }
         }
     }
