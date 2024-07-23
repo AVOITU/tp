@@ -3,6 +3,7 @@ package com.example.eni_shop.ui.screen
 
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.border
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -48,6 +49,7 @@ import com.example.eni_shop.ui.vm.ArticleListViewModel
 
 @Composable
 fun ArticleListScreen(
+    onClickToDetail: (Long) -> Unit,
     articleListViewModel: ArticleListViewModel = viewModel(factory = ArticleListViewModel.Factory)
 ) {
 
@@ -66,7 +68,8 @@ fun ArticleListScreen(
         articles
     }
 
-    Scaffold(
+
+    Scaffold(modifier = Modifier,
         topBar = { TopBar() }
     ) { innerPadding ->
         Column(modifier = Modifier.padding(innerPadding)) {
@@ -77,7 +80,7 @@ fun ArticleListScreen(
                     selectedCategory = it
                 }
             )
-            ArticleList(articles = filteredArticles)
+            ArticleList(articles = filteredArticles, onClickToDetail = onClickToDetail)
         }
     }
 }
@@ -119,14 +122,14 @@ fun CategoryFilterChip(
 
 
 @Composable
-fun ArticleList(articles: List<Article>) {
+fun ArticleList(articles: List<Article>, onClickToDetail: (Long) -> Unit) {
 
     LazyVerticalGrid(
         columns = GridCells.Fixed(2),
         contentPadding = PaddingValues(4.dp)
     ) {
         items(articles) { article ->
-            ArticleItem(article)
+            ArticleItem(article, onClickToDetail = onClickToDetail )
         }
     }
 
@@ -134,13 +137,17 @@ fun ArticleList(articles: List<Article>) {
 }
 
 @Composable
-fun ArticleItem(article: Article = Article()) {
+fun ArticleItem(article: Article = Article(),
+                onClickToDetail: (Long) -> Unit) {
 
 
     Card(
         border = BorderStroke(1.5.dp, Color.Blue),
         colors = CardDefaults.cardColors(containerColor = Color.White),
         modifier = Modifier.padding(4.dp)
+            .clickable{
+                onClickToDetail(article.id)
+            }
     ) {
         Column(
             modifier = Modifier
@@ -176,6 +183,11 @@ fun ArticleItem(article: Article = Article()) {
             Text(text = "${String.format("%.2f", article.price)} €")
         }
     }
+}
+
+@Composable
+fun floatingActionButton(){
+    //floatingActionButton()
 }
 
 @Composable

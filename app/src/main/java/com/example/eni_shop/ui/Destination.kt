@@ -3,8 +3,6 @@ package com.example.eni_shop.ui
 import androidx.navigation.NavType
 import androidx.navigation.navArgument
 
-class Destination {
-
     interface Destination{
         val route : String
     }
@@ -14,14 +12,21 @@ class Destination {
             get() = "home"
     }
 
-    object SignInDestination : Destination{
+    object DetailDestination : Destination{
         override val route: String
-            get() = "signIn"
+            get() = "articleDetail"
+
+        val idArg = "id"
+        val arguments = listOf(
+            navArgument(idArg){ type = NavType.LongType }
+        )
+
+        val routeWithArgs = "${route}/{$idArg}"
     }
 
-    object ProfileDestination : Destination{
+    object AddArticleDestination : Destination{
         override val route: String
-            get() = "profil"
+            get() = "addArticle"
 
         val nameArg = "name"
         val arguments = listOf(
@@ -30,4 +35,3 @@ class Destination {
 
         val routeWithArgs = "$route/{$nameArg}"
     }
-}
